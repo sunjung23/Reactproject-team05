@@ -1,0 +1,42 @@
+.sidebar {
+  position: fixed;
+  left: 20px;
+  top: 140px;
+  width: 150px;
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  z-index: 100;
+}
+
+.sidebar-title {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.sidebar-menu {
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.menu-item {
+  color: #666;
+  font-weight: normal;
+  text-decoration: none;
+  display: block;
+  padding: 5px 0;
+  transition: color 0.2s ease;
+}
+
+.menu-item:hover {
+  color: #ff3399;
+}
+
+.menu-item.active {
+  color: #ff3399;
+  font-weight: bold;
+}
