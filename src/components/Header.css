@@ -3,7 +3,9 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(135deg, #ff3399 0%, #ff6bb3 100%);
+  background: linear-gradient(135deg, 
+#ff3399 0%, 
+#ff6bb3 100%);
   color: white;
   padding: 32px;
   box-sizing: border-box;
@@ -51,28 +53,25 @@ nav {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-
-
 .hdbtn:hover {
   background: rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 25px rgba(255, 51, 153, 0.4);
   text-decoration: none;
 }
 
-
 @media (max-width: 768px) {
   header {
     padding: 24px 20px;
   }
-  
+
   header h1 {
     font-size: 24px;
   }
-  
+
   nav {
     gap: 4px;
   }
-  
+
   .hdbtn {
     padding: 8px 16px;
     font-size: 14px;
@@ -85,9 +84,10 @@ nav {
     gap: 12px;
     align-items: center;
   }
-  
+
   nav {
     width: 100%;
     justify-content: center;
   }
 }
+

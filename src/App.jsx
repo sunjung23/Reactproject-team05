@@ -1,14 +1,23 @@
-
-import './App.css'
-import Home from './pages/Home'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { TransactionProvider } from './components/Transaction';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import './App.css';
 
 function App() {
- 
   return (
-    <>
-     <Home/>
-    </>
-  )
+    <TransactionProvider>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </div>
+      </Router>
+    </TransactionProvider>
+  );
 }
 
-export default App
+export default App;
