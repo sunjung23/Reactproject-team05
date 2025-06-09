@@ -8,9 +8,9 @@ function Header() {
       <div>
         <h1>가계부</h1>
         <nav>
-          <a href="#" className="hdbtn"> 수입/지출 내역</a>
+          <Link to="/breakdown" className="hdbtn"> 수입/지출 내역</Link>
           <Link to="/dashboard" className="hdbtn"> 대시보드</Link>
-          <a href="#" className="hdbtn"> 캘린더</a>
+          <Link to="/" className="hdbtn"> 캘린더</Link>
         </nav>
       </div>
     </header>

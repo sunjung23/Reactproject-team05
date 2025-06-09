@@ -4,9 +4,9 @@ import './Sidebar.css';
 
 function Sidebar({ currentPage = '캘린더' }) {
   const menuItems = [
-    { name: '수입/지출 내역', href: '/transactions', isLink: false },
-    { name: '대시보드', href: '/dashboard', isLink: true },
-    { name: '캘린더', href: '/', isLink: false }
+    { name: '수입/지출 내역', href: '/breakdown' },
+    { name: '대시보드', href: '/dashboard' },
+    { name: '캘린더', href: '/' }
   ];
 
   return (
@@ -14,6 +14,7 @@ function Sidebar({ currentPage = '캘린더' }) {
       <h3 className="sidebar-title">Menu</h3>
       <div className="sidebar-menu">
         {menuItems.map((item) => (
+
           item.isLink ? (
             <Link
               key={item.name}
