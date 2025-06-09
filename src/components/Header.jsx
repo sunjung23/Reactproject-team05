@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
@@ -8,7 +9,7 @@ function Header() {
         <h1>가계부</h1>
         <nav>
           <a href="#" className="hdbtn"> 수입/지출 내역</a>
-          <a href="#" className="hdbtn"> 대시보드</a>
+          <Link to="/dashboard" className="hdbtn"> 대시보드</Link>
           <a href="#" className="hdbtn"> 캘린더</a>
         </nav>
       </div>
