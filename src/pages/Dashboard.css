@@ -1,0 +1,352 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.dashboard .main {
+  margin-left: 200px;
+  padding: 60px 40px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* 사이드바를 고려한 중앙 정렬 */
+  transform: translateX(-100px);
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 1300px; /* 1000px에서 1300px로 확대 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.charts-wrapper {
+  background: white;
+  border-radius: 32px;
+  padding: 60px 80px; /* 좌우 패딩 증가 */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px; /* 간격 더 늘림 */
+  align-items: center;
+  width: 100%;
+  min-height: 600px; /* 높이 증가 */
+}
+
+/* 지출 목록 박스 스타일 */
+.expense-details-box {
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  border: 2px solid #ff3399;
+  box-shadow: 0 8px 25px rgba(255, 51, 153, 0.15);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  background: linear-gradient(135deg, #ff3399 0%, #ff6bb3 100%);
+  color: white;
+}
+
+.details-header h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expense-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 25px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.expense-item:hover {
+  background-color: #fafafa;
+}
+
+.expense-item:last-child {
+  border-bottom: none;
+}
+
+.expense-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.expense-category {
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+}
+
+.expense-date {
+  font-size: 13px;
+  color: #666;
+}
+
+.expense-amount {
+  font-size: 16px;
+  font-weight: 600;
+  color: #E91E63;
+}
+
+.no-expenses {
+  padding: 40px 25px;
+  text-align: center;
+  color: #999;
+  font-size: 15px;
+}
+
+.total-amount {
+  padding: 20px 25px;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #E91E63;
+}
+
+.chart-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-section h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 40px;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.chart-container {
+  width: 100%;
+  height: 400px; /* 350px에서 400px로 증가 */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 월별 지출 차트 스타일 */
+.monthly-chart .comparison-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+  padding: 15px 25px;
+  background: #E3F2FD;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.current-month {
+  color: #1976D2;
+  font-weight: 600;
+}
+
+.amount.increase {
+  color: #E91E63;
+}
+
+.amount.decrease {
+  color: #4CAF50;
+}
+
+/* 카테고리 차트 스타일 */
+.category-chart .pie-chart-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px; /* 간격 늘림 */
+  width: 100%;
+  padding: 15px 25px; /* 패딩 늘림 */
+}
+
+.category-chart .custom-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 18px; /* 간격 늘림 */
+  flex-shrink: 0;
+  min-width: 100px; /* 최소 너비 늘림 */
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.legend-item:hover {
+  transform: translateX(5px);
+}
+
+.legend-item.selected {
+  transform: translateX(5px);
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.legend-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+}
+
+.category-chart .top-category {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.category-name {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 16px;
+  background: rgba(233, 30, 99, 0.1);
+  display: inline-block;
+}
+
+@media (max-width: 1024px) {
+  .dashboard .main {
+    margin-left: 0;
+    padding: 40px 20px;
+    transform: none;
+  }
+  
+  .charts-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px;
+    max-width: 600px;
+  }
+  
+  .chart-container {
+    height: 300px;
+  }
+  
+  .category-chart .pie-chart-wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .category-chart .custom-legend {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .expense-details-box {
+    margin: 0 20px;
+  }
+
+  .expense-item {
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .expense-amount {
+    align-self: flex-end;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard .main {
+    padding: 20px 15px;
+  }
+  
+  .charts-wrapper {
+    padding: 30px;
+    border-radius: 24px;
+    gap: 30px;
+  }
+  
+  .chart-section h3 {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  
+  .chart-container {
+    height: 250px;
+  }
+  
+  .category-chart .pie-chart-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .category-chart .custom-legend {
+    gap: 10px;
+  }
+  
+  .legend-text {
+    font-size: 13px;
+  }
+
+  .details-header {
+    padding: 15px 20px;
+  }
+
+  .details-header h4 {
+    font-size: 16px;
+  }
+
+  .total-amount {
+    padding: 15px 20px;
+    font-size: 15px;
+  }
+}

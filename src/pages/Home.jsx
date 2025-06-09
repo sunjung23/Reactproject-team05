@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { useTransactions } from '../components/Transaction';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Calendar from '../components/Calendar';
 import './Home.css';
 
 function Home() {
+  const { transactions, addTransaction } = useTransactions();
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
-  const [transactions, setTransactions] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [tab, setTab] = useState('수입');
 
@@ -33,8 +34,17 @@ function Home() {
     const category = document.getElementById('input-category').value;
 
     if (date && amount && category) {
-      const newItem = { id: Date.now(), type: tab, amount, date, category };
-      setTransactions([...transactions, newItem]);
+      const newItem = { 
+        id: Date.now(), 
+        type: tab, 
+        amount, 
+        date, 
+        category 
+      };
+      
+      // Context의 addTransaction 사용
+      addTransaction(newItem);
+      
       setIsFormOpen(false);
       document.getElementById('input-date').value = '';
       document.getElementById('input-amount').value = '';
