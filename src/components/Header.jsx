@@ -10,7 +10,7 @@ function Header() {
         <nav>
           <Link to="/breakdown" className="hdbtn"> 수입/지출 내역</Link>
           <Link to="/dashboard" className="hdbtn"> 대시보드</Link>
-          <Link to="/" className="hdbtn"> 캘린더</Link>
+          <Link to="/calendar" className="hdbtn"> 캘린더</Link>
         </nav>
       </div>
     </header>

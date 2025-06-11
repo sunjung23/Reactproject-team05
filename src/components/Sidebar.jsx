@@ -6,7 +6,7 @@ function Sidebar({ currentPage = '캘린더' }) {
   const menuItems = [
     { name: '수입/지출 내역', href: '/breakdown' },
     { name: '대시보드', href: '/dashboard' },
-    { name: '캘린더', href: '/' }
+    { name: '캘린더', href: '/calendar' }
   ];
 
   return (

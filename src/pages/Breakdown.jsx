@@ -89,7 +89,7 @@ function Breakdown() {
     return (
         <div className="breakdown">
             <Header />
-            <Sidebar currentPage="내역분석" />
+            <Sidebar currentPage="수입/지출 내역" />
             
             <main className="breakdown-main">
                 <div className="breakdown-header">
