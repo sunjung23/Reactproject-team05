@@ -14,24 +14,13 @@ function Sidebar({ currentPage = '캘린더' }) {
       <h3 className="sidebar-title">Menu</h3>
       <div className="sidebar-menu">
         {menuItems.map((item) => (
-
-          item.isLink ? (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={`menu-item ${currentPage === item.name ? 'active' : ''}`}
-            >
-              {item.name}
-            </Link>
-          ) : (
-            <a
-              key={item.name}
-              href={item.href}
-              className={`menu-item ${currentPage === item.name ? 'active' : ''}`}
-            >
-              {item.name}
-            </a>
-          )
+          <Link
+            key={item.name}
+            to={item.href}
+            className={`menu-item ${currentPage === item.name ? 'active' : ''}`}
+          >
+            {item.name}
+          </Link>
         ))}
       </div>
     </div>
