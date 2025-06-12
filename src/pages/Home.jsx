@@ -26,7 +26,20 @@ function Home() {
 
   const income = filterByMonth('수입');
   const expense = filterByMonth('지출');
-  const balance = income - expense;
+  const getBalance = () => {
+    return transactions
+      .filter(t => {
+        const date = new Date(t.date);
+        return (
+          date.getFullYear() < currentMonth.getFullYear() ||
+          (date.getFullYear() === currentMonth.getFullYear() &&
+          date.getMonth() <= currentMonth.getMonth())
+        );
+      })
+      .reduce((sum, t) => t.type === '수입' ? sum + t.amount : sum - t.amount, 0);
+  };
+
+  const balance = getBalance();
 
   const handleAdd = () => {
     const date = document.getElementById('input-date').value;
@@ -58,7 +71,7 @@ function Home() {
     } else if (type === 'next') {
       setCurrentMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
     } else if (type === 'day') {
-      setSelectedDate(day);
+      setSelectedDate(day); //선택된 날짜 저장하기
     }
   };
 
@@ -75,9 +88,20 @@ function Home() {
             onDateSelect={handleDateSelect}
           />
 
-          <div className="details">
-            <h4>{selectedDate ? `${currentMonth.getMonth() + 1}월 ${selectedDate}일 내역` : "날짜를 선택하세요"}</h4>
-            {transactions
+      <div className="details">
+        <h4>{selectedDate ? `${currentMonth.getMonth() + 1}월 ${selectedDate}일 내역` : "날짜를 선택하세요"}</h4>
+        {selectedDate ? (
+          transactions.filter(t => {
+            const date = new Date(t.date);
+            return (
+              date.getFullYear() === currentMonth.getFullYear() &&
+              date.getMonth() === currentMonth.getMonth() &&
+              date.getDate() === selectedDate
+            );
+          }).length === 0 ? (
+            <div className="empty">거래 내역이 없습니다.</div>
+          ) : (
+            transactions
               .filter(t => {
                 const date = new Date(t.date);
                 return (
@@ -90,8 +114,10 @@ function Home() {
                 <div key={t.id}>
                   [{t.type}] {t.category} - {t.amount.toLocaleString()}원
                 </div>
-              ))}
-          </div>
+              ))
+          )
+        ) : null}
+      </div>
 
           <div className="summary">
             <div className="card income">
