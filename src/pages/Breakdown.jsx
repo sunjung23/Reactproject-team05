@@ -61,7 +61,17 @@ function Breakdown() {
         .filter(t => t.type === '지출')
         .reduce((sum, t) => sum + t.amount, 0);
 
-    const monthlyBalance = monthlyIncome - monthlyExpense;
+    // 누적 잔액 계산
+    const cumulativeBalance = transactions
+    .filter(t => {
+        const date = new Date(t.date);
+        return (
+        date.getFullYear() < currentMonth.getFullYear() ||
+        (date.getFullYear() === currentMonth.getFullYear() &&
+        date.getMonth() <= currentMonth.getMonth())
+        );
+    })
+    .reduce((sum, t) => t.type === '수입' ? sum + t.amount : sum - t.amount, 0);
 
     // 월 변경하기
     const changeMonth = (direction) => {
@@ -113,8 +123,8 @@ function Breakdown() {
                     </div>
                     <div className="summary-card balance-card">
                         <h3>잔액</h3>
-                        <p className={`amount ${monthlyBalance >= 0 ? 'income' : 'expense'}`}>
-                            {monthlyBalance.toLocaleString()}원
+                        <p className={`amount ${cumulativeBalance >= 0 ? 'income' : 'expense'}`}>
+                            {cumulativeBalance.toLocaleString()}원
                         </p>
                     </div>
                 </div>
