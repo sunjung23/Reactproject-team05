@@ -45,6 +45,7 @@ function Home() {
     const date = document.getElementById('input-date').value;
     const amount = parseInt(document.getElementById('input-amount').value);
     const category = document.getElementById('input-category').value;
+    const memo = document.getElementById('input-memo').value;
 
     if (date && amount && category) {
       const newItem = { 
@@ -52,7 +53,8 @@ function Home() {
         type: tab, 
         amount, 
         date, 
-        category 
+        category,
+        memo
       };
       
       // Context의 addTransaction 사용
@@ -182,6 +184,10 @@ function Home() {
                     </>
                   )}
                 </select>
+              </div>
+              <div className="group">
+                <label>메모</label>
+                <input type="text" id="input-memo" placeholder="간단한 메모를 입력하세요" />
               </div>
               <div className="actions">
                 <button onClick={handleAdd}>추가하기</button>
