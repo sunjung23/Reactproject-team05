@@ -268,58 +268,108 @@
   font-weight: bold;
 }
 
-/* 반응형 디자인 */
-/* @media (max-width: 1024px) {
-  .breakdown {
-    width: 100%;
-    padding-top: 100px;
-  }
-  
-  .breakdown-main {
-    margin-left: 0;
-    padding: 20px;
-  }
-  
-  .monthly-summary {
-    grid-template-columns: 1fr;
-  }
-  
-  .controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .filter-buttons, .sort-buttons {
-    justify-content: center;
-  }
-} */
-/* 
-@media (max-width: 768px) {
-  .month-title {
-    font-size: 24px;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .transaction-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  
-  .transaction-info {
-    width: 100%;
-    margin-left: 0;
-  }
-  
-  .filter-buttons, .sort-buttons {
-    flex-wrap: wrap;
-  }
-  
-  .controls button {
-    font-size: 12px;
-    padding: 10px 15px;
-  }
-} */
+.transaction-info {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-memo {
+  font-size: 13px;
+  color: #888;
+  margin-top: 3px;
+  margin-left: 5px;
+}
+
+.transaction-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.transaction-actions button {
+  padding: 4px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #eee;
+  color: #444;
+  transition: background-color 0.2s;
+}
+
+.transaction-actions button:hover {
+  background-color: #ddd;
+}
+
+.transaction-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.transaction-actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.edit-form input,
+.edit-form select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.edit-form .edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.edit-form .edit-actions button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.edit-form .edit-actions .save {
+  background-color: #ff3399;
+  color: white;
+}
+
+.edit-form .edit-actions .save:hover {
+  background-color: #ff66aa;
+}
+
+.edit-form .edit-actions .cancel {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.edit-form .edit-actions .cancel:hover {
+  background-color: #e0e0e0;
+}

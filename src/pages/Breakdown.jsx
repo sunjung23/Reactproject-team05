@@ -5,13 +5,14 @@ import Sidebar from '../components/Sidebar';
 import "./Breakdown.css";
 
 function Breakdown() {
-    const { transactions } = useTransactions();
+    const { transactions, updateTransaction, removeTransaction } = useTransactions();
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [sortBy, setSortBy] = useState('date'); 
     const [sortOrder, setSortOrder] = useState('desc');
     const [filterType, setFilterType] = useState('all'); 
+    const [editing, setEditing] = useState(null); 
+    const [editData, setEditData] = useState({}); 
 
-    // 현재 월의 거래 내역 필터링
     const monthlyTransactions = transactions.filter(t => {
         const date = new Date(t.date);
         return (
@@ -21,28 +22,17 @@ function Breakdown() {
         );
     });
 
-    // 정렬
     const sortedTransactions = [...monthlyTransactions].sort((a, b) => {
         let comparison = 0;
-        
         switch (sortBy) {
-            case 'date':
-                comparison = new Date(a.date) - new Date(b.date);
-                break;
-            case 'amount':
-                comparison = a.amount - b.amount;
-                break;
-            case 'category':
-                comparison = a.category.localeCompare(b.category);
-                break;
-            default:
-                comparison = 0;
+            case 'date': comparison = new Date(a.date) - new Date(b.date); break;
+            case 'amount': comparison = a.amount - b.amount; break;
+            case 'category': comparison = a.category.localeCompare(b.category); break;
+            default: comparison = 0;
         }
-        
         return sortOrder === 'asc' ? comparison : -comparison;
     });
 
-    // 카테고리 통계
     const categoryStats = monthlyTransactions.reduce((acc, t) => {
         if (!acc[t.category]) {
             acc[t.category] = { count: 0, total: 0, type: t.type };
@@ -52,41 +42,28 @@ function Breakdown() {
         return acc;
     }, {});
 
-    // 월별 토탈
-    const monthlyIncome = monthlyTransactions
-        .filter(t => t.type === '수입')
-        .reduce((sum, t) => sum + t.amount, 0);
-    
-    const monthlyExpense = monthlyTransactions
-        .filter(t => t.type === '지출')
-        .reduce((sum, t) => sum + t.amount, 0);
+    const monthlyIncome = monthlyTransactions.filter(t => t.type === '수입').reduce((sum, t) => sum + t.amount, 0);
+    const monthlyExpense = monthlyTransactions.filter(t => t.type === '지출').reduce((sum, t) => sum + t.amount, 0);
 
-    // 누적 잔액 계산
     const cumulativeBalance = transactions
-    .filter(t => {
-        const date = new Date(t.date);
-        return (
-        date.getFullYear() < currentMonth.getFullYear() ||
-        (date.getFullYear() === currentMonth.getFullYear() &&
-        date.getMonth() <= currentMonth.getMonth())
-        );
-    })
-    .reduce((sum, t) => t.type === '수입' ? sum + t.amount : sum - t.amount, 0);
+        .filter(t => {
+            const date = new Date(t.date);
+            return (
+                date.getFullYear() < currentMonth.getFullYear() ||
+                (date.getFullYear() === currentMonth.getFullYear() &&
+                    date.getMonth() <= currentMonth.getMonth())
+            );
+        })
+        .reduce((sum, t) => t.type === '수입' ? sum + t.amount : sum - t.amount, 0);
 
-    // 월 변경하기
     const changeMonth = (direction) => {
         setCurrentMonth(prev => {
             const newMonth = new Date(prev);
-            if (direction === 'prev') {
-                newMonth.setMonth(prev.getMonth() - 1);
-            } else {
-                newMonth.setMonth(prev.getMonth() + 1);
-            }
+            direction === 'prev' ? newMonth.setMonth(prev.getMonth() - 1) : newMonth.setMonth(prev.getMonth() + 1);
             return newMonth;
         });
     };
 
-    // 정렬 변경하기
     const handleSort = (field) => {
         if (sortBy === field) {
             setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -96,11 +73,21 @@ function Breakdown() {
         }
     };
 
+    const handleEdit = (transaction) => {
+        setEditing(transaction.id);
+        setEditData({ ...transaction });
+    };
+
+    const handleSave = () => {
+        updateTransaction(editData);
+        setEditing(null);
+    };
+
     return (
         <div className="breakdown">
             <Header />
             <Sidebar currentPage="수입/지출 내역" />
-            
+
             <main className="breakdown-main">
                 <div className="breakdown-header">
                     <div className="month-nav">
@@ -123,53 +110,20 @@ function Breakdown() {
                     </div>
                     <div className="summary-card balance-card">
                         <h3>잔액</h3>
-                        <p className={`amount ${cumulativeBalance >= 0 ? 'income' : 'expense'}`}>
-                            {cumulativeBalance.toLocaleString()}원
-                        </p>
+                        <p className={`amount ${cumulativeBalance >= 0 ? 'income' : 'expense'}`}>{cumulativeBalance.toLocaleString()}원</p>
                     </div>
                 </div>
 
                 <div className="controls">
                     <div className="filter-buttons">
-                        <button 
-                            className={filterType === 'all' ? 'active' : ''}
-                            onClick={() => setFilterType('all')}
-                        >
-                            전체
-                        </button>
-                        <button 
-                            className={filterType === '수입' ? 'active' : ''}
-                            onClick={() => setFilterType('수입')}
-                        >
-                            수입
-                        </button>
-                        <button 
-                            className={filterType === '지출' ? 'active' : ''}
-                            onClick={() => setFilterType('지출')}
-                        >
-                            지출
-                        </button>
+                        <button className={filterType === 'all' ? 'active' : ''} onClick={() => setFilterType('all')}>전체</button>
+                        <button className={filterType === '수입' ? 'active' : ''} onClick={() => setFilterType('수입')}>수입</button>
+                        <button className={filterType === '지출' ? 'active' : ''} onClick={() => setFilterType('지출')}>지출</button>
                     </div>
-                    
                     <div className="sort-buttons">
-                        <button 
-                            className={sortBy === 'date' ? 'active' : ''}
-                            onClick={() => handleSort('date')}
-                        >
-                            날짜순 {sortBy === 'date' && (sortOrder === 'asc' ? '↑' : '↓')}
-                        </button>
-                        <button 
-                            className={sortBy === 'amount' ? 'active' : ''}
-                            onClick={() => handleSort('amount')}
-                        >
-                            금액순 {sortBy === 'amount' && (sortOrder === 'asc' ? '↑' : '↓')}
-                        </button>
-                        <button 
-                            className={sortBy === 'category' ? 'active' : ''}
-                            onClick={() => handleSort('category')}
-                        >
-                            카테고리순 {sortBy === 'category' && (sortOrder === 'asc' ? '↑' : '↓')}
-                        </button>
+                        <button className={sortBy === 'date' ? 'active' : ''} onClick={() => handleSort('date')}>날짜순 {sortBy === 'date' && (sortOrder === 'asc' ? '↑' : '↓')}</button>
+                        <button className={sortBy === 'amount' ? 'active' : ''} onClick={() => handleSort('amount')}>금액순 {sortBy === 'amount' && (sortOrder === 'asc' ? '↑' : '↓')}</button>
+                        <button className={sortBy === 'category' ? 'active' : ''} onClick={() => handleSort('category')}>카테고리순 {sortBy === 'category' && (sortOrder === 'asc' ? '↑' : '↓')}</button>
                     </div>
                 </div>
 
@@ -180,9 +134,7 @@ function Breakdown() {
                             <div key={category} className="stat-card">
                                 <h4>{category}</h4>
                                 <p className="stat-count">{stats.count}건</p>
-                                <p className={`stat-amount ${stats.type === '수입' ? 'income' : 'expense'}`}>
-                                    {stats.type === '수입' ? '+' : '-'}{stats.total.toLocaleString()}원
-                                </p>
+                                <p className={`stat-amount ${stats.type === '수입' ? 'income' : 'expense'}`}>{stats.type === '수입' ? '+' : '-'}{stats.total.toLocaleString()}원</p>
                             </div>
                         ))}
                     </div>
@@ -191,30 +143,44 @@ function Breakdown() {
                 <div className="transaction-list">
                     <h3>거래 내역 ({sortedTransactions.length}건)</h3>
                     {sortedTransactions.length === 0 ? (
-                        <div className="empty-state">
-                            <p>이 달에는 거래 내역이 없습니다.</p>
-                        </div>
+                        <div className="empty-state"><p>이 달에는 거래 내역이 없습니다.</p></div>
                     ) : (
                         <div className="transactions">
                             {sortedTransactions.map(transaction => (
                                 <div key={transaction.id} className="transaction-item">
                                     <div className="transaction-date">
-                                        {new Date(transaction.date).toLocaleDateString('ko-KR', {
-                                            month: 'short',
-                                            day: 'numeric',
-                                            weekday: 'short'
-                                        })}
+                                        {new Date(transaction.date).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', weekday: 'short' })}
                                     </div>
                                     <div className="transaction-info">
-                                        <div className="transaction-category">
-                                            <span className={`type-badge ${transaction.type}`}>
-                                                {transaction.type}
-                                            </span>
-                                            {transaction.category}
+                                        <div className="left-column">
+                                            {editing === transaction.id ? (
+                                                <div className="edit-form">
+                                                    <input type="date" value={editData.date} onChange={(e) => setEditData({ ...editData, date: e.target.value })} />
+                                                    <input type="number" value={editData.amount} onChange={(e) => setEditData({ ...editData, amount: parseInt(e.target.value) })} />
+                                                    <input type="text" value={editData.category} onChange={(e) => setEditData({ ...editData, category: e.target.value })} />
+                                                    <input type="text" value={editData.memo} onChange={(e) => setEditData({ ...editData, memo: e.target.value })} />
+                                                    <button onClick={handleSave}>저장</button>
+                                                    <button onClick={() => setEditing(null)}>취소</button>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <div className="transaction-category">
+                                                        <span className={`type-badge ${transaction.type}`}>{transaction.type}</span>
+                                                        {transaction.category}
+                                                    </div>
+                                                    {transaction.memo && <div className="transaction-memo"> {transaction.memo}</div>}
+                                                    <div className="transaction-actions">
+                                                        <button onClick={() => handleEdit(transaction)}>수정</button>
+                                                        <button onClick={() => {const confirmDelete = window.confirm('정말로 이 내역을 삭제하시겠습니까?');
+                                                                if (confirmDelete) {
+                                                                removeTransaction(transaction.id);
+                                                                }
+                                                            }}> 삭제</button>
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
-                                        <div className={`transaction-amount ${transaction.type === '수입' ? 'income' : 'expense'}`}>
-                                            {transaction.type === '수입' ? '+' : '-'}{transaction.amount.toLocaleString()}원
-                                        </div>
+                                        <div className={`transaction-amount ${transaction.type === '수입' ? 'income' : 'expense'}`}>{transaction.type === '수입' ? '+' : '-'}{transaction.amount.toLocaleString()}원</div>
                                     </div>
                                 </div>
                             ))}
