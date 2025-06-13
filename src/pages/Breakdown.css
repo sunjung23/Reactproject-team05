@@ -91,6 +91,10 @@
   color: #f44336;
 }
 
+.amount.balance {
+  color: #2196F3;
+}
+
 /* 컨트롤 영역 */
 .controls {
   background: white;
