@@ -83,17 +83,6 @@ function Breakdown() {
         setEditing(null);
     };
 
-    const getSortButtonText = (field) => {
-        if (sortBy === field) {
-            if (field === 'date') {
-                return sortOrder === 'desc' ? '최신순' : '오래된순';
-            } else {
-                return `${field === 'amount' ? '금액순' : '카테고리순'} ${sortOrder === 'asc' ? '↑' : '↓'}`;
-            }
-        }
-        return field === 'date' ? '날짜순' : field === 'amount' ? '금액순' : '카테고리순';
-    };
-
     return (
         <div className="breakdown">
             <Header />
@@ -132,9 +121,9 @@ function Breakdown() {
                         <button className={filterType === '지출' ? 'active' : ''} onClick={() => setFilterType('지출')}>지출</button>
                     </div>
                     <div className="sort-buttons">
-                        <button className={sortBy === 'date' ? 'active' : ''} onClick={() => handleSort('date')}>{getSortButtonText('date')}</button>
-                        <button className={sortBy === 'amount' ? 'active' : ''} onClick={() => handleSort('amount')}>{getSortButtonText('amount')}</button>
-                        <button className={sortBy === 'category' ? 'active' : ''} onClick={() => handleSort('category')}>{getSortButtonText('category')}</button>
+                        <button className={sortBy === 'date' ? 'active' : ''} onClick={() => handleSort('date')}>날짜순 {sortBy === 'date' && (sortOrder === 'asc' ? '↑' : '↓')}</button>
+                        <button className={sortBy === 'amount' ? 'active' : ''} onClick={() => handleSort('amount')}>금액순 {sortBy === 'amount' && (sortOrder === 'asc' ? '↑' : '↓')}</button>
+                        <button className={sortBy === 'category' ? 'active' : ''} onClick={() => handleSort('category')}>카테고리순 {sortBy === 'category' && (sortOrder === 'asc' ? '↑' : '↓')}</button>
                     </div>
                 </div>
 
