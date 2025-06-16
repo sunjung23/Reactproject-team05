@@ -3,6 +3,7 @@ import { useTransactions } from '../components/Transaction';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import "./Breakdown.css";
+import usePageTitle from '../usePageTitle';
 
 function Breakdown() {
     const { transactions, updateTransaction, removeTransaction } = useTransactions();
@@ -12,6 +13,8 @@ function Breakdown() {
     const [filterType, setFilterType] = useState('all'); 
     const [editing, setEditing] = useState(null); 
     const [editData, setEditData] = useState({}); 
+
+    usePageTitle("가게부 - 수입/지출 내역");
 
     const monthlyTransactions = transactions.filter(t => {
         const date = new Date(t.date);

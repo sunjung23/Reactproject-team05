@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Calendar from '../components/Calendar';
 import './Home.css';
+import usePageTitle from '../usePageTitle';
 
 function Home() {
   const { transactions, addTransaction } = useTransactions();
@@ -11,6 +12,8 @@ function Home() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [tab, setTab] = useState('수입');
+
+  usePageTitle("가게부 - 캘린더");
 
   const filterByMonth = (type) =>
     transactions

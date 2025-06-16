@@ -5,10 +5,13 @@ import Categorygraph from '../components/Categorygraph';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import './Dashboard.css';
+import usePageTitle from '../usePageTitle';
 
 function Dashboard() {
   const { getMonthlyExpenses, getCategoryExpenses, transactions } = useTransactions();
   const [selectedDetails, setSelectedDetails] = useState(null);
+
+  usePageTitle("가게부 - 대시보드");
 
   // 실제 데이터 가져오기
   const monthlyExpenses = getMonthlyExpenses();
