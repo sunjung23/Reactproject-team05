@@ -83,6 +83,17 @@ function Breakdown() {
         setEditing(null);
     };
 
+    const getSortButtonText = (field) => {
+        if (sortBy === field) {
+            if (field === 'date') {
+                return sortOrder === 'desc' ? '최신순' : '오래된순';
+            } else {
+                return `${field === 'amount' ? '금액순' : '카테고리순'} ${sortOrder === 'asc' ? '↑' : '↓'}`;
+            }
+        }
+        return field === 'date' ? '날짜순' : field === 'amount' ? '금액순' : '카테고리순';
+    };
+
     return (
         <div className="breakdown">
             <Header />
@@ -110,7 +121,7 @@ function Breakdown() {
                     </div>
                     <div className="summary-card balance-card">
                         <h3>잔액</h3>
-                        <p className={`amount ${cumulativeBalance >= 0 ? 'income' : 'expense'}`}>{cumulativeBalance.toLocaleString()}원</p>
+                        <p className="amount balance">{cumulativeBalance.toLocaleString()}원</p>
                     </div>
                 </div>
 
@@ -121,9 +132,9 @@ function Breakdown() {
                         <button className={filterType === '지출' ? 'active' : ''} onClick={() => setFilterType('지출')}>지출</button>
                     </div>
                     <div className="sort-buttons">
-                        <button className={sortBy === 'date' ? 'active' : ''} onClick={() => handleSort('date')}>날짜순 {sortBy === 'date' && (sortOrder === 'asc' ? '↑' : '↓')}</button>
-                        <button className={sortBy === 'amount' ? 'active' : ''} onClick={() => handleSort('amount')}>금액순 {sortBy === 'amount' && (sortOrder === 'asc' ? '↑' : '↓')}</button>
-                        <button className={sortBy === 'category' ? 'active' : ''} onClick={() => handleSort('category')}>카테고리순 {sortBy === 'category' && (sortOrder === 'asc' ? '↑' : '↓')}</button>
+                        <button className={sortBy === 'date' ? 'active' : ''} onClick={() => handleSort('date')}>{getSortButtonText('date')}</button>
+                        <button className={sortBy === 'amount' ? 'active' : ''} onClick={() => handleSort('amount')}>{getSortButtonText('amount')}</button>
+                        <button className={sortBy === 'category' ? 'active' : ''} onClick={() => handleSort('category')}>{getSortButtonText('category')}</button>
                     </div>
                 </div>
 
@@ -167,8 +178,8 @@ function Breakdown() {
                                                     <div className="transaction-category">
                                                         <span className={`type-badge ${transaction.type}`}>{transaction.type}</span>
                                                         {transaction.category}
+                                                        {transaction.memo && <span className="transaction-memo"> {transaction.memo}</span>}
                                                     </div>
-                                                    {transaction.memo && <div className="transaction-memo"> {transaction.memo}</div>}
                                                     <div className="transaction-actions">
                                                         <button onClick={() => handleEdit(transaction)}>수정</button>
                                                         <button onClick={() => {const confirmDelete = window.confirm('정말로 이 내역을 삭제하시겠습니까?');
