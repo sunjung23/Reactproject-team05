@@ -12,13 +12,12 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  /* 사이드바를 고려한 중앙 정렬 */
   transform: translateX(-100px);
 }
 
 .dashboard-container {
   width: 100%;
-  max-width: 1300px; /* 1000px에서 1300px로 확대 */
+  max-width: 1300px; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,17 +27,16 @@
 .charts-wrapper {
   background: white;
   border-radius: 32px;
-  padding: 60px 80px; /* 좌우 패딩 증가 */
+  padding: 60px 80px; 
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 100px; /* 간격 더 늘림 */
+  gap: 100px; 
   align-items: center;
   width: 100%;
-  min-height: 600px; /* 높이 증가 */
+  min-height: 600px;
 }
 
-/* 지출 목록 박스 스타일 */
 .expense-details-box {
   width: 100%;
   background: white;
@@ -160,14 +158,13 @@
 
 .chart-container {
   width: 100%;
-  height: 400px; /* 350px에서 400px로 증가 */
+  height: 400px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* 월별 지출 차트 스타일 */
 .monthly-chart .comparison-badge {
   display: flex;
   align-items: center;
@@ -195,22 +192,22 @@
   color: #4CAF50;
 }
 
-/* 카테고리 차트 스타일 */
+
 .category-chart .pie-chart-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 30px; /* 간격 늘림 */
+  gap: 30px; 
   width: 100%;
-  padding: 15px 25px; /* 패딩 늘림 */
+  padding: 15px 25px; 
 }
 
 .category-chart .custom-legend {
   display: flex;
   flex-direction: column;
-  gap: 18px; /* 간격 늘림 */
+  gap: 18px; 
   flex-shrink: 0;
-  min-width: 100px; /* 최소 너비 늘림 */
+  min-width: 100px; 
 }
 
 .legend-item {

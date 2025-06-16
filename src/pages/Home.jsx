@@ -13,7 +13,7 @@ function Home() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [tab, setTab] = useState('수입');
 
-  usePageTitle("가게부 - 캘린더");
+  usePageTitle("가계부 - 캘린더");
 
   const filterByMonth = (type) =>
     transactions

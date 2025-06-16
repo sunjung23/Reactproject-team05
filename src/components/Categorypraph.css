@@ -1,19 +1,19 @@
-/* 카테고리 차트 스타일 */
+
 .category-chart .pie-chart-wrapper {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* space-between으로 변경 */
-    gap: 25px; /* 간격 줄임 */
+    justify-content: space-between; 
+    gap: 25px; 
     width: 100%;
-    padding: 0 10px; /* 좌우 패딩 추가 */
+    padding: 0 10px;
   }
   
   .category-chart .custom-legend {
     display: flex;
     flex-direction: column;
-    gap: 16px; /* 간격 약간 줄임 */
-    flex-shrink: 0; /* 범례가 줄어들지 않도록 */
-    min-width: 120px; /* 최소 너비 설정 */
+    gap: 16px;
+    flex-shrink: 0; 
+    min-width: 120px; 
   }
   
   .legend-item {
@@ -35,7 +35,7 @@
   }
   
   .legend-color {
-    width: 16px; /* 크기 약간 줄임 */
+    width: 16px;
     height: 16px;
     border-radius: 3px;
     flex-shrink: 0;
@@ -43,10 +43,10 @@
   }
   
   .legend-text {
-    font-size: 14px; /* 폰트 크기 약간 줄임 */
+    font-size: 14px; 
     font-weight: 500;
     color: #333;
-    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    white-space: nowrap; 
     transition: all 0.2s ease;
   }
   
@@ -69,7 +69,7 @@
     display: inline-block;
   }
   
-  /* 지출 목록 스타일 - monthgraph와 동일 */
+  
   .category-chart .expense-details {
     margin-top: 30px;
     background: white;

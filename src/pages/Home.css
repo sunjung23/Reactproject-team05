@@ -15,14 +15,13 @@ body {
 .main {
   padding: 40px;
   display: flex;
-  justify-content: center; /* 메인 컨테이너 중앙 정렬 */
+  justify-content: center; 
 }
 
 .calendar {
-  /* margin-left: 220px; 제거하고 중앙 정렬 */
   width: 100%;
-  max-width: 800px; /* 최대 너비 설정 */
-  margin: 0 auto; /* 중앙 정렬 */
+  max-width: 800px; 
+  margin: 0 auto;
 }
 
 .box {
@@ -35,7 +34,6 @@ body {
   border: 1px solid #e0e0e0;
 }
 
-/*캘린더 날짜 누를 때 나오는 박스*/
 .details {
   margin-bottom: 30px;
   background: white;
@@ -272,7 +270,6 @@ body {
   color: #666;
 }
 
-/* 사이드바와의 관계를 고려한 반응형 디자인 */
 @media (max-width: 1024px) {
   .home {
     width: 100%;

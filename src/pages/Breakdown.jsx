@@ -14,7 +14,7 @@ function Breakdown() {
     const [editing, setEditing] = useState(null); 
     const [editData, setEditData] = useState({}); 
 
-    usePageTitle("가게부 - 수입/지출 내역");
+    usePageTitle("가계부 - 수입/지출 내역");
 
     const monthlyTransactions = transactions.filter(t => {
         const date = new Date(t.date);
