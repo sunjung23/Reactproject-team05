@@ -5,12 +5,15 @@ import Categorygraph from '../components/Categorygraph';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import './Dashboard.css';
+import usePageTitle from '../usePageTitle';
 
 function Dashboard() {
   const { getMonthlyExpenses, getCategoryExpenses, transactions } = useTransactions();
   const [selectedDetails, setSelectedDetails] = useState(null);
   const [chartKey, setChartKey] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  usePageTitle("가계부 - 대시보드");
 
   // 페이지 로드 애니메이션
   useEffect(() => {
