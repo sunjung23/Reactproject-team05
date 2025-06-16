@@ -1,13 +1,30 @@
 import React from 'react';
+import { useTransactions } from './Transaction';
 import './Calendar.css';
 
 function Calendar({ currentMonth, selectedDate, onDateSelect }) {
+  const { transactions } = useTransactions();
+  
   const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
   const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
   const offset = firstDay.getDay();
   const totalDays = lastDay.getDate();
 
   const calendar = Array(offset).fill(null).concat(Array.from({ length: totalDays }, (_, i) => i + 1));
+
+  // 해당 날짜에 거래 내역이 있는지 확인하는 함수
+  const hasTransactions = (day) => {
+    if (!day) return false;
+    
+    return transactions.some(t => {
+      const date = new Date(t.date);
+      return (
+        date.getFullYear() === currentMonth.getFullYear() &&
+        date.getMonth() === currentMonth.getMonth() &&
+        date.getDate() === day
+      );
+    });
+  };
 
   return (
     <div className="box">
@@ -28,7 +45,12 @@ function Calendar({ currentMonth, selectedDate, onDateSelect }) {
             className={`grid-cell ${day && selectedDate === day ? 'selected' : ''}`}
             onClick={() => day && onDateSelect('day', day)}
           >
-            {day || ''}
+            {day && (
+              <div className="day-content">
+                <span className="day-number">{day}</span>
+                {hasTransactions(day) && <div className="transaction-indicator"></div>}
+              </div>
+            )}
           </div>
         ))}
       </div>

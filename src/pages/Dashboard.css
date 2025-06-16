@@ -22,6 +22,14 @@
   flex-direction: column;
   align-items: center;
   gap: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.dashboard-container.loaded {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .charts-wrapper {
@@ -34,9 +42,25 @@
   gap: 100px; 
   align-items: center;
   width: 100%;
-  min-height: 600px;
+  min-height: 600px; 
 }
 
+/* 차트 아이템 애니메이션 */
+.chart-item {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.8s ease-out forwards;
+}
+
+.chart-item-1 {
+  animation-delay: 0.2s;
+}
+
+.chart-item-2 {
+  animation-delay: 0.4s;
+}
+
+/* 지출 목록 박스 스타일 */
 .expense-details-box {
   width: 100%;
   background: white;
@@ -45,6 +69,10 @@
   box-shadow: 0 8px 25px rgba(255, 51, 153, 0.15);
   overflow: hidden;
   margin-top: 20px;
+}
+
+.expense-details-box.animate-slide-in {
+  animation: slideInFromBottom 0.5s ease-out;
 }
 
 .details-header {
@@ -77,6 +105,10 @@
   justify-content: center;
 }
 
+.animate-pulse-hover:hover {
+  animation: pulse 0.3s ease-in-out;
+}
+
 .expense-list {
   max-height: 300px;
   overflow-y: auto;
@@ -89,21 +121,30 @@
   align-items: center;
   padding: 16px 25px;
   border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .expense-item:hover {
   background-color: #fafafa;
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .expense-item:last-child {
   border-bottom: none;
 }
 
+.animate-list-item {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInFromLeft 0.4s ease-out forwards;
+}
+
 .expense-info {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  
 }
 
 .expense-category {
@@ -123,11 +164,19 @@
   color: #E91E63;
 }
 
+.animate-number-count {
+  animation: numberHighlight 0.5s ease-out;
+}
+
 .no-expenses {
   padding: 40px 25px;
   text-align: center;
   color: #999;
   font-size: 15px;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
 }
 
 .total-amount {
@@ -137,6 +186,16 @@
   text-align: center;
   font-size: 16px;
   font-weight: 600;
+  color: #E91E63;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.6s ease-out 0.3s both;
+}
+
+.total-number {
+  animation: totalNumberPulse 0.8s ease-out;
+  font-weight: bold;
   color: #E91E63;
 }
 
@@ -158,13 +217,14 @@
 
 .chart-container {
   width: 100%;
-  height: 400px;
+  height: 400px; 
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* 월별 지출 차트 스타일 */
 .monthly-chart .comparison-badge {
   display: flex;
   align-items: center;
@@ -192,14 +252,14 @@
   color: #4CAF50;
 }
 
-
+/* 카테고리 차트 스타일 */
 .category-chart .pie-chart-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 30px; 
   width: 100%;
-  padding: 15px 25px; 
+  padding: 15px 25px;
 }
 
 .category-chart .custom-legend {
@@ -253,6 +313,106 @@
   border-radius: 16px;
   background: rgba(233, 30, 99, 0.1);
   display: inline-block;
+}
+
+/* 애니메이션 키프레임 */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes numberHighlight {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: #fff3e0;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes totalNumberPulse {
+  0% {
+    transform: scale(1);
+    color: #333;
+  }
+  50% {
+    transform: scale(1.1);
+    color: #E91E63;
+  }
+  100% {
+    transform: scale(1);
+    color: #E91E63;
+  }
 }
 
 @media (max-width: 1024px) {
